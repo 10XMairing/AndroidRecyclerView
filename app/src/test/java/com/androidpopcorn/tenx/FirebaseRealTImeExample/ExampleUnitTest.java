@@ -1,4 +1,4 @@
-package com.androidpopcorn.tenx.recyclerviewexample;
+package com.androidpopcorn.tenx.FirebaseRealTImeExample;
 
 import org.junit.Test;
 

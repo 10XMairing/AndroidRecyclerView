@@ -1,4 +1,4 @@
-package com.androidpopcorn.tenx.recyclerviewexample;
+package com.androidpopcorn.tenx.FirebaseRealTImeExample;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -9,16 +9,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CustomAdapter  extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {
 
     private Context mCtx;
-    private List<String> mList;
+    private HashMap<String, Person> mData;
 
-    public CustomAdapter(Context mCtx, List<String> mList) {
+
+
+    public CustomAdapter(Context mCtx) {
         this.mCtx = mCtx;
-        this.mList = mList;
+        mData = new HashMap<>();
     }
 
     @NonNull
@@ -31,13 +34,13 @@ public class CustomAdapter  extends RecyclerView.Adapter<CustomAdapter.CustomVie
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-
-        holder.tvName.setText(mList.get(position));
+       Person person = (Person) mData.values().toArray()[position];
+       holder.tvName.setText(person.getName());
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mData.size();
     }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
@@ -51,5 +54,22 @@ public class CustomAdapter  extends RecyclerView.Adapter<CustomAdapter.CustomVie
             tvName = itemView.findViewById(R.id.tv_name);
             ivImage = itemView.findViewById(R.id.iv_image);
         }
+    }
+
+
+    public void addDataAndUpdate(String key, Person p){
+           mData.put(key, p);
+           notifyDataSetChanged();
+    }
+
+    public void deleteDataAndUpdate(String key){
+        mData.remove(key);
+        notifyDataSetChanged();
+    }
+
+    public void clearData(){
+        mData.clear();
+        notifyDataSetChanged();
+
     }
 }
